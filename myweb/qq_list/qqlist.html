@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>个人网站</title>
+<style type="text/css">
+*{margin: 0; padding: 0; list-style: none;}
+a{color: #252525; text-decoration: none;}
+a:hover{color: #ba2636;}
+#box{width: 720px; overflow: hidden; margin: 20px auto;}
+#ul1{height: 40px; border-left: 1px solid #ccc; float: left;}
+#ul1 li{width: 130px; height: 38px; line-height: 38px; text-align: center; float: left; cursor: pointer; display: inline; border: 1px solid #ccc; border-left: none;}
+#ul1 li.active{height: 36px; line-height: 36px; border-bottom: 0; border-top: 3px solid #324f4f;}
+.to_do{width: 456px; height: 39px; border-bottom: 1px solid #ddd; text-align: right; float: right; display: block;}
+#div1{width: 720px; margin: 0; clear: both;}	
+#div1 .main{overflow: hidden;}
+#div1 .main ol{padding-bottom: 30px; overflow: hidden;}
+#div1 .main ol li{width: 355px; float: left; line-height: 43px; border-bottom: 1px solid #ddd; font-size: 14px;}
+#div1 .main ol li.pr10{padding-right: 10px;}
+#div1 .main ol li a{font-weight: bold; margin-left: 20px;}
+.page{padding: 10px 0; height: 40px; overflow: hidden; width: 720px; overflow: hidden;}
+.page a{float: left; width: 36px; height: 39px; margin-right: 5px; text-align: center; line-height: 39px; font-weight: bold; font-size: 12px; background: #aabbb5; color: #fff;}
+.page a.on{background: #324f4f;}
+#user {width:698px; display:block; border:1px solid #ddd; border-top:none; border-bottom:none; padding:5px 10px;}
+#content_text{width: 698px; height: 129px; border: 1px solid #Ddd; border-top: 0; padding: 10px; line-height: 22px; background: #f4f3f3;}
+.content{padding-top: 0; display: none;}
+.show{display: block;}
+.text_sub{width: 720px; padding-top: 40px; line-height: 32px; text-align: right; position: relative;}
+.text_sub a{width: 93px; height: 32px; display: inline-block; background: #324f4f; color: #fff; text-align: center; margin-left: 10px;}
+.comments li{line-height: 20px; border-bottom: 1px solid #d8dfea; overflow: hidden; padding-top: 10px;}
+.comments li img{width: 40px; height: 40px; float: left; margin-right: 10px;}
+.comments li p.cont{ float: left;}
+.comments li p span{margin-right: 10px;}
+.reply{padding-top: 5px; text-align: right;}
+.reply span{font-size: 14px; margin-right: 6px;}
+.reply span a{color: #9e3a3a;}
+</style>
+<script src="js/ajax1.js"></script>
+<script>
+window.onload=function(){
+	var oReadList=document.getElementById("read_list");
+	var aPageRead=document.getElementById("page_read");
+	
+	var aHead=document.getElementById("ul1").children;
+	var oBody=document.getElementById("div1").children;
+	var oSendMsg=document.getElementById("send_msg");
+	var oUsername=document.getElementById("username");
+	var oContent=document.getElementById("content_text");
+	var oComments=document.getElementById("comments");
+	var oPageView=document.getElementById("page_view");
+	//6.获取评论的总页   qq_list.php?act=getSendPageCount
+	getPageCount();
+	function getPageCount(){
+		ajax({
+			"url":"qq_list.php",
+			"data":{"act":"getSendPageCount"},
+			"success":function(str){
+				//return {error:0, count:1}
+				//alert(str);
+				var json=eval("("+str+")");
+				if(json.error==0){
+					oPageView.innerHTML="";
+					for(var i=0;i<json.count;i++){
+						var oAnchor=document.createElement("a");
+						oAnchor.innerHTML=i+1;
+						oAnchor.href="javascript:;";
+						oAnchor.onclick=function(){
+						for(var i=0;i<oPageView.children.length;i++){
+							oPageView.children[i].className="";
+						}
+							this.className="on";
+							getPageMsg(this.innerHTML);
+						};
+						oPageView.appendChild(oAnchor);
+					}
+					oPageView.children[0].className="on";
+				} 
+			}
+		});
+	};
+	//5.获取评论的总页数  qq_list.php?act=getSendPage&n=1
+	getPageMsg(1);
+	function getPageMsg(n){
+		ajax({
+			"url":"qq_list.php",
+			"data":{"act":"getSendPage","n":n},
+			"success":function(str){
+				//return {"error":0, msg:[{"nickName":"asdfsdfsdf11","content":"a1111","pic":"1449027539"},{},{},..]}
+				var json=eval("("+str+")");
+				var arr=json.msg;
+				oComments.innerHTML="";
+				for(var i=0;i<arr.length;i++){
+					var oLi=creatMsg(arr[i].nickName,arr[i].content,arr[i].pic);
+					oComments.appendChild(oLi);
+				}
+			}
+		});
+	};
+	//4.发表评论  qq_list.php?act=sendMsg&nickName=xxx&content=xxx
+	oSendMsg.onclick=function(){
+		ajax({
+			"url":"qq_list.php",
+			"data":{"act":"sendMsg","nickName":oUsername.value,"content":oContent.value},
+			"success":function(str){
+				//return {error:1, msg:'xxx', time:xxx};
+				var json=eval("("+str+")");
+				if(json.error==0){
+					//alert(str);
+					/*var oLi=creatMsg(oUsername.value,oContent.value,json.time);
+					if(oComments.children.length==0){
+						oComments.appendChild(oLi);
+					}else{
+						oComments.insertBefore(oLi,oComments.children[0]);
+					}*/
+					getPageMsg(1);
+					getPageCount();
+				}
+			}
+		});
+	};
+	//4.1创建信息
+	function creatMsg(username,content,time){
+		var d=new Date();
+		d.setTime(time*1000);
+		var year=d.getFullYear();
+		var month=d.getMonth()+1;
+		month=fillZero(month);
+		var date=d.getDate();
+		date=fillZero(date);
+		var hours=d.getHours();
+		hours=fillZero(hours);
+		var minutes=d.getMinutes();
+		minutes=fillZero(minutes);
+		var t=year+"-"+month+"-"+date+" "+hours+":"+minutes;
+		var oLi=document.createElement("li");
+		oLi.innerHTML=
+		'<img class="pic" src="img/1.jpg">\
+			<p class="title"><span>'+username+' </span><span>'+t+'</span></p>\
+			<p class="cont">'+content+'</p>\
+			<div class="reply">\
+				<span>赞<a href="javascript:;">(0)</a></span>\
+			</div>';
+		return oLi;
+	}
+	//3.选项卡
+	for(var i=0;i<aHead.length;i++){
+		(function(index){
+			aHead[i].onclick=function(){
+				for(var i=0;i<aHead.length;i++){
+					aHead[i].className="";
+					oBody[i].className="content";
+				}
+				this.className="active";
+				oBody[index].className="content show";
+			};
+		})(i);
+	}
+	//2获取页数: qq_list.php?act=getPageCount
+	getPage();
+	function getPage(){
+		ajax({
+			"url":" qq_list.php",
+			"data":{"act":"getPageCount"},
+			"success":function(str){
+				//return {error:0, msg:4}
+				var json=eval("("+str+")");
+				if(json.error==0){
+					aPageRead.innerHTML="";
+					for(var i=0;i<json.msg;i++){
+						var oAnchor=document.createElement("a");
+						oAnchor.innerHTML=i+1;
+						oAnchor.href="javascript:;";
+						
+						oAnchor.onclick=function(){
+							for(var i=0;i<aPageRead.children.length;i++){
+								aPageRead.children[i].className="";
+							}
+							this.className="on";
+							creatMsgList(this.innerHTML);
+						};
+						
+						aPageRead.appendChild(oAnchor);
+					}
+					aPageRead.children[0].className="on";
+				}
+			}
+		});
+	};
+	//1获取某一页数据 qq_list.php?act=get&n=1
+	creatMsgList(1)
+	function creatMsgList(n){
+		ajax({
+			"url":"qq_list.php",
+			"data":{"act":"get","n":n},
+			"success":function(str){
+				//return {error:0, msg:[{title:'xxx'},{}....]}
+				var json=eval("("+str+")");
+				if(json.error==0){
+					var arr=json.msg;
+					oReadList.innerHTML="";
+					for(var i=0;i<arr.length;i++){
+						var oLi=document.createElement("li");
+						oLi.innerHTML='<a href="javascript:;">'+arr[i].title+'</a>';
+						oReadList.appendChild(oLi);
+					}
+				}
+			}
+		});
+	};
+	
+};
+function fillZero(n){return n<10?"0"+n:""+n};
+</script>
+</head>
+<body>
+<div id="box">
+	<ul id="ul1">
+		<li class="active">章节目录</li>
+		<li>评论</li>
+	</ul>
+	<span class="to_do"></span>
+	<div id="div1">
+		<div class="content show">
+			<div class="main">
+				<ol id="read_list">
+					<!-- <li><a href="javascript:;">1. 第1章 楔子，冥婚</a></li>
+					<li class="pr10"><a href="javascript:;">2. 第2章 穿越遭乞丐羞辱</a></li>
+					<li><a href="javascript:;">3. 第3章 乞丐儿们</a></li>
+					<li class="pr10"><a href="javascript:;">4. 第4章 这不知廉耻的女人！</a></li>
+					<li><a href="javascript:;">5. 第5章 接踵而来的浪潮</a></li>
+					<li class="pr10"><a href="javascript:;">6. 第6章 大惊失色</a></li> -->
+				</ol>
+				<div class="page" id="page_read">
+					<!-- <a href="javascript:;" class="on">1</a>
+					<a href="javascript:;">2</a>
+					<a href="javascript:;">3</a> -->
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="main">
+            	<span id="user">用户名：<input type="text" id="username" /><br></span>
+				<textarea id="content_text"></textarea>
+				<div class="text_sub">
+					<a href="javascript:;" id="send_msg">发表评论</a>
+				</div>
+				<ul class="comments" id="comments">
+					<!--<li>
+						<img class="pic" src="img/1.jpg">
+						<p class="title"><span>小七 </span><span>2014-05-21 08:49</span></p>
+						<p class="cont">快更新啊</p>
+						<div class="reply">
+							<span>赞<a href="javascript:;">(0)</a></span>
+						</div>
+					</li>-->
+				</ul>
+				<div class="page" id="page_view">
+					<!-- <a href="javascript:;" class="on">1</a>
+					<a href="javascript:;">2</a>
+					<a href="javascript:;">3</a> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
