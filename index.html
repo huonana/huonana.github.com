@@ -2,24 +2,257 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
-<link rel="stylesheet" href="style/all.mim.css">
-<script src="js/index1.min.js"></script>
+<title>huonana</title>
+<link rel="stylesheet" href="style/common.css">
+<script src="js/common.js"></script>
+<script src="js/domReady.js"></script>
+<script src="js/Automatic_typing.js"></script>
+<script src="js/index2.js"></script>
+<script src="js/onscroll.js"></script>
+
 </head>
 <body>
+<!--nav-->
 <div id="fiter">
 	<div class="log"><img src="image/top1.png"></div>
     <div class="wd"><img src="image/wrd.png"></div>
 	<ul id="ul1">
     	<li><a href="javascript:;">首页</a></li>
         <li><a href="javascript:;">我的技能</a></li>
-        <li><a href="javascript:;">我的成就</a></li>
         <li><a href="javascript:;">我的作品</a></li>
+        <li><a href="javascript:;">我的成就</a></li>
         <li><a href="javascript:;">联系我</a></li>
         <li class="box"></li>
     </ul>
 </div>
-<div id="content"></div>
+
+
+<div style="height:93px;"></div>
+<div id="main">
+<!--首页-->
+<div id="page1" class="page">
+	<div id="first">
+        <a href="javascript:;" class="next"></a>
+        <a href="javascript:;" class="prev"></a>
+        <img src="image/macs.png">
+        <div class="macb"></div>
+        <div id="mac">
+            <div class="baoza" id="baoza"></div>
+        </div>
+    </div>
+    <div class="btom"></div>
+</div>
+
+<!--我的技能-->
+<div id="page2" class="page">
+	<div class="tab">
+    	<h2>我的技能</h2>
+     </div>
+	<div class="page2_left" id="page2_left">
+    	<div class="page2_cont">
+        	<h2>Welcome To My Personal Website </h2>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <!--<span class="active">我熟悉HTML，CSS，JavaScript等语言，熟悉Jquery，AJAX，Jsonp，Seajs等前端技术,我能根据需求准确完成产品前端展示效果，可根据需求迅速展现出交互效果</span>-->
+        </div>
+    </div>
+    <ul class="ch-grid">
+    	 <li>
+            <div class="ch-item ch-img-1">
+            	<div class="jiantou">1</div>
+                <div class="jiantou2">2</div>
+                <div class="jiantou3">3</div>
+            	<span>HTML</span>
+                <div class="ch-info">
+                    <h3>HTML</h3>
+                    <p><em>熟悉HTML/CSS，能够兼容主流各种浏览器，比如IE6-10、Chrome、Firefox..</em></p>
+                </div>
+            </div>
+         </li>
+         
+         <li>
+            <div class="ch-item ch-img-2">
+            	<span>CSS</span>
+                <div class="ch-info">
+                    <h3>CSS</h3>
+                    <p><em>熟悉CSS2，了解CSS3新标签，熟悉web语义化，能手写符合符合W3C标准的页面</em></p>
+                </div>
+            </div>
+         </li>
+         
+         <li>
+            <div class="ch-item ch-img-3">
+            	<span>JS</span>
+                <div class="ch-info">
+                    <h3>JS</h3>
+                    <p><em>熟悉原生JavaScript，DOM操作，Ajax，Jsonp等，具有一定手写代码能力</em></p>
+                </div>
+            </div>
+         </li>
+         <div class="click">点击每个圆，有惊喜哦！</div>
+    </ul>
+</div>
+<!--我的作品-->
+<div id="page3"  class="page">
+	<div class="tab" id="tab">
+    	<h2>我的作品</h2>
+    </div>
+        <ul id="ul2">
+        	<li class="cur">
+            	<a href="../myweb/weibo/web.html" target="_blank">
+                	<img src="image/max1.jpg">
+                	<span>微博留言板</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max2.jpg">
+                	<span>我的愿望</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max3.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max4.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max5.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max6.jpg">
+                	<span>js效果</span>
+                </a>
+            </li>
+            <li>
+            	<a href="javascript:;">
+                	<img src="image/max7.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max8.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max9.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max10.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max11.jpg">
+                	<span>js效果</span>
+                </a>
+            	<a href="javascript:;">
+                	<img src="image/max12.jpg">
+                	<span>js效果</span>
+                </a>
+            </li>
+
+        </ul>
+    <div class="src" id="src">
+        <span class="active"></span>
+        <span></span>
+    </div>
+</div>
+<!--其他作品-->
+<div id="page4"  class="page">
+	<div class="tab" id="tab">
+    	<h2>其他作品</h2>
+    </div>
+    <ul id="ul3">
+    	<li>
+        	<img src="image/hc1.jpg">
+            <div>
+            	<em>
+                    <h2>CSS3的IOS6密码解锁界面</h2>
+                    <p>随手写的一个css3的IOS解锁界面</p>
+                </em>
+                <span class="bg"></span>
+            </div>
+        </li>
+        <li>
+        	<img src="image/hc2.jpg">
+            <div>
+            	<em>
+                    <h2>CSS3的IOS6密码解锁界面</h2>
+                    <p>随手写的一个css3的IOS解锁界面</p>
+                </em>
+                <span class="bg"></span>
+            </div>
+        </li>
+        <li>
+        	<img src="image/hc3.jpg">
+            <div>
+            	<em>
+                    <h2>CSS3的IOS6密码解锁界面</h2>
+                    <p>随手写的一个css3的IOS解锁界面</p>
+                </em>
+                <span class="bg"></span>
+            </div>
+        </li>
+        <li>
+        	<img src="image/hc4.jpg">
+            <div>
+            	<em>
+                    <h2>CSS3的IOS6密码解锁界面</h2>
+                    <p>随手写的一个css3的IOS解锁界面</p>
+                </em>
+                <span class="bg"></span>
+            </div>
+        </li>
+        <li>
+        	<img src="image/hc5.jpg">
+            <div>
+            	<em>
+                    <h2>CSS3的IOS6密码解锁界面</h2>
+                    <p>随手写的一个css3的IOS解锁界面</p>
+                </em>
+                <span class="bg"></span>
+            </div>
+        </li>
+        <li>
+        	<img src="image/hc6.jpg">
+            <div>
+            	<em>
+                    <h2>CSS3的IOS6密码解锁界面</h2>
+                    <p>随手写的一个css3的IOS解锁界面</p>
+                </em>
+                <span class="bg"></span>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--联系我-->
+<div id="page5"  class="page">
+	<div class="tab">
+    	<h2>其他作品</h2>
+    </div>
+    <div class="botm_con">
+    	<div class="mesg">
+        	<div class="number">
+            	<h3>霍娜娜</h3>
+           		<p>188-9656-3687</p>
+            </div>
+            <div class="qq">
+            	<img src="image/qq.png">
+                <span>:</span>
+                <p>100817293</p>
+            </div>
+            <div class="weixin">
+            	<img src="image/weixin.png">
+                <span>:</span>
+                <p>100817293</p>
+            </div>
+        </div>
+    </div>
+    <div id="bottom">
+    	<img src="image/aa.png">
+    </div>
+</div>
+
+</div>
 </body>
 </html>
 
