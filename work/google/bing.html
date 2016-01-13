@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ padding:0; margin:0; list-style:none; font-size:16px;}
+.clear{ clear:both;}
+#div1{ overflow:hidden; margin:100px auto; width:880px;}
+#div1 ul{ width:880px;}
+#div1 li{ width:206px; height:86px; float:left; margin:5px; background:#e6e6e6; cursor:pointer; position:relative; border:2px solid #e6e6e6;}
+#div1 li:hover{border:2px solid #ccc;}
+#div1 li a{ position:absolute; width:100%; height:100%; text-align:center; line-height:86px; top:0; font-size:40px;}
+#div1 em{ width:28px; height:28px; background:url(images/th.png) no-repeat -90px -30px;display:block; margin:30px auto 0;}
+#div1 li:hover em{ background-position:-300px -30px;}
+#div1 span{ position:absolute; right:4px; top:2px; width:16px; height:16px; background:url(images/th2.png) no-repeat; display:none; cursor:pointer; z-index:9;}
+#div1 li.active{background:url(images/th1.jpg) no-repeat;}
+#div1 li.active.zd{ background:#e6e6e6;}
+#div1 li.active.yk{ background-position:0 0;}
+#div1 li.active.ai{ background-position:-220px 0;}
+#div1 li.active.td{ background-position:-425px 0;}
+#div1 li.active.sh{ background-position:-645px 0;}
+#div1 li.active:hover{border:2px solid #ccc;}
+#div1 li.active:hover span{ background-position:-17px 0; display:block;}
+#div1 li.active em{ display:none;}
+.bg{ width:100%; height:100%; position:fixed; background:#000; opacity:0.3; top:0; left:0;display:none; }
+.con{ width:450px; height:400px; background:#fff; position:absolute; z-index:2; left:50%; top:50%; margin-left:-230px; margin-top:-200px;display:none; }
+.con h6{ font:normal 22px/52px '微软雅黑'; text-align:center;}
+.con label{ float:left; font-size:16px; margin:5px 0; display:block; margin-left:50px;}
+.con .text{ float:left; margin-left:10px; line-height:20px; height:20px; margin:5px 0; font-size:14px;}
+.con .btn{ float:left; margin:15px 0 0 20px;}
+.con ul{ width:400px; margin:20px auto; border:1px solid #ccc; height:220px; overflow-y:scroll;}
+.con li{ width:185px; height:80px; float:left; background:#ccc; margin:2px; cursor:pointer;}
+.con li p{ text-align:left; padding-left:30px; padding-top:20px;}
+.con span{position:absolute; right:4px; top:4px; width:16px; height:16px; background:url(images/th2.png) no-repeat; background-position:-2px -2px; cursor:pointer;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv = document.getElementById('div1');
+	var aAddApp = oDiv.getElementsByTagName('em');//所有+
+	
+	var oMask = document.getElementById('bg');//遮罩
+	var oWin = document.getElementById('con');//弹框
+	
+	var oText1 = document.getElementById('text1');
+	var oText2 = document.getElementById('text2');
+	var oBtn = document.getElementById('btn1');//提交
+	var oCloseWin = oWin.getElementsByTagName('span')[0];//弹窗关闭按钮
+	
+	var aRemoveApp = oDiv.getElementsByTagName("span");//所有X
+	
+	var curLi=null;	//当前li
+	
+	//1.给所有+添加事件
+	for(var i=0;i<aAddApp.length;i++){
+		aAddApp[i].onclick=function(){
+			openLightBox();
+			curLi=this.parentNode;	//更新li
+		};
+	}
+	oCloseWin.onclick=closeLightBox;
+	
+	//添加
+	oBtn.onclick=function(){
+		closeLightBox();
+		var oAnchor=document.createElement('a');
+		oAnchor.innerHTML=oText1.value;
+		oAnchor.href=oText2.value;
+		curLi.appendChild(oAnchor);
+		curLi.className='active zd';
+		oText1.value=oText2.value='';
+	};
+	//删除
+	for(var i=0;i<aRemoveApp.length;i++){
+		aRemoveApp[i].onclick=function(){
+			var oLi=this.parentNode;
+			oLi.removeChild(oLi.children[oLi.children.length-1]);
+			//oLi.className='';
+			oLi.removeAttribute('class');
+		};	
+	}
+	
+	function openLightBox(){
+		oMask.style.display=oWin.style.display='block';	
+	}
+	function closeLightBox(){
+		oMask.style.display=oWin.style.display='none';	
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<ul>
+    	<li class="active zd"><span></span><em></em><a href="#">智能社</a></li>
+    	<li><span></span><em></em></li>
+    	<li><span></span><em></em></li>
+    	<li><span></span><em></em></li>
+        
+    	<li><span></span><em></em></li>
+    	<li><span></span><em></em></li>
+    	<li><span></span><em></em></li>
+    	<li><span></span><em></em></li>
+    </ul>
+</div>
+
+<div class="bg" id="bg"></div>
+<div class="con" id="con">
+	<span></span>
+	
+	<h6>添加网站</h6>
+    
+    <label>网站名称：</label><input type="text" placeholder="例如:腾讯网" class="text" id="text1" /><input type="button" value="提交" class="btn" id="btn1" />
+    <div class="clear"></div>
+    <label>网站地址：</label><input type="text" placeholder="例如:http://news.qq.com" class="text" id="text2" />
+    
+    
+</div>
+</body>
+</html>

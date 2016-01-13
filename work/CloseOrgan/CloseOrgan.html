@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>手风琴</title>
+<style>
+* {margin:0; padding:0; list-style:none;}
+
+#div1 {width:940px; height:305px; border:1px solid black; margin:100px auto; position:relative; overflow:hidden;}
+#div1 span {width:20px; height:305px; display:block; position:absolute; left:0; top:0;}
+#div1 div {width:840px; height:305; position:absolute; left:0; top:0; background:#CCC;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	var aDiv=oDiv.children;
+	for(var i=0;i<aDiv.length;i++){
+		aDiv[i].style.left=i*20+'px';
+		aDiv[i].index=i;
+		aDiv[i].onmouseover=function(){
+			for(var i=1;i<aDiv.length;i++){
+				if(i<=this.index){
+					//←		left=i*span.w
+					
+					//aDiv[i].style.left=i*20+'px';
+					move(aDiv[i],{left:i*20},{time:1000});
+				}else{
+					//→		div.w+(i-1)*span.w
+					//aDiv[i].style.left=840+(i-1)*20+'px';
+					move(aDiv[i],{left:840+(i-1)*20},{time:1000});
+				}
+			}
+		};	
+	}
+};
+function move(obj,json,optional){
+	optional=optional||{};
+	optional.time=optional.time||300;
+	optional.fn=optional.fn||null;
+	optional.type=optional.type||'ease-out';
+	
+	var start={};
+	var dis={};	
+	for(var key in json){
+		start[key]=parseFloat(getStyle(obj,key));
+		dis[key]=json[key]-start[key];	
+	}
+	var count=Math.round(optional.time/30);
+	var n=0;
+	
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		n++;
+		
+		for(var key in json){
+			switch(optional.type){
+				case 'linear':
+					var a=n/count;
+					var cur=start[key]+dis[key]*a;
+					break;	
+				case 'ease-in':
+					var a=n/count;
+					var cur=start[key]+dis[key]*a*a*a;
+					break;	
+				case 'ease-out':
+					var a=1-n/count;
+					var cur=start[key]+dis[key]*(1-a*a*a);
+					break;	
+			}
+			if(key=='opacity'){
+				obj.style.opacity=cur;
+				obj.style.filter='alpha(opacity='+cur*100+')';	
+			}else{
+				obj.style[key]=cur+'px';
+			}
+		}
+		
+		
+		if(n==count){
+			clearInterval(obj.timer);
+			optional.fn && optional.fn();
+		}
+	},30);
+}
+function getStyle(obj,attr){
+	return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];	
+}
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<div class="active"><img src="images/0.jpg" /><span style="background:#C00;">第0项</span></div>
+	<div><img src="images/1.jpg" /><span style="background:#0fc;">第1项</span></div>
+	<div><img src="images/2.jpg" /><span style="background:#af0;">第2项</span></div>
+	<div><img src="images/3.jpg" /><span style="background:#c0f;">第3项</span></div>
+	<div><img src="images/0.jpg" /><span style="background:#e0f;">第4项</span></div>
+	<div><img src="images/1.jpg" /><span style="background:#a90;">第5项</span></div>
+</div>
+</body>
+</html>

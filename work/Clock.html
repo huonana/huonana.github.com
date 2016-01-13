@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<title>智能社 - www.zhinengshe.com</title>
+<style>
+*{margin:0;padding:0;list-style:none;}
+#div1{ position:relative;width:300px; height:300px; border:1px solid #000; border-radius:50%; box-shadow:1px 2px 3px #000; margin:10px;}
+
+.hour,.min,.sec{ -webkit-transform-origin:center bottom;}
+
+.hour{ position:absolute;left:50%;top:50%; margin-left:-3px; margin-top:-80px;width:6px; height:80px; background:#000;}
+.min{ position:absolute;left:50%;top:50%; margin-left:-2px; margin-top:-100px;width:4px; height:100px; background:#000;}
+.sec{ position:absolute;left:50%;top:50%; margin-left:-1px; margin-top:-120px;width:2px; height:120px; background:red;}
+
+
+.cap{position:absolute;left:50%;top:50%; margin-left:-10px; margin-top:-10px;width:20px; height:20px; border-radius:50%; background:red;}
+
+#div1 span{ position:absolute;left:50%; top:0; margin-left:-1px;width:2px; height:8px; background:#000; -webkit-transform-origin:center 150px;}
+#div1 span.on{width:4px; height:12px;margin-left:-2px;}
+
+#div1 span em{ position:absolute;left:50%;top:10px;  margin-left:-10px;width:20px; text-align:center;font-style:normal;}
+</style>
+<script>
+window.onload = function(){
+	
+	var oDiv = document.getElementById("div1");
+	var oH = oDiv.querySelector(".hour");
+	var oM = oDiv.querySelector(".min");
+	var oS = oDiv.querySelector(".sec");
+	
+	//创建刻度
+	for(var i = 0; i < 60; i++){
+		var oSpan = document.createElement("span");
+		
+		if(i%5 == 0){
+			oSpan.classList.add("on");
+			if(i == 0){
+				oSpan.innerHTML = "<em>12<\/em>";
+			} else {
+				oSpan.innerHTML = "<em>"+i/5+"<\/em>";	
+			}
+			oSpan.children[0].style.transform = "rotate("+-i*6+"deg)";
+		}
+		
+		oSpan.style.transform = "rotate("+i*6+"deg)";
+		
+		oDiv.appendChild(oSpan);
+	}
+	
+	clock();
+	setInterval(clock,30);
+	function clock(){
+		var oDate = new Date();
+		var iH = oDate.getHours();
+		var iM = oDate.getMinutes();
+		var iS = oDate.getSeconds();
+		var iMs = oDate.getMilliseconds();
+		
+		oH.style.transform = "rotate("+(iH*30 + iM/60*30)+"deg)";
+		oM.style.transform = "rotate("+(iM*6+ iS/60*6)+"deg)";
+		oS.style.transform = "rotate("+(iS*6 + iMs/1000*6)+"deg)";
+	}
+	
+	oDiv.onmousedown = function(ev){
+		var oEvent = ev || event;
+		var disX = oEvent.clientX - oDiv.offsetLeft;
+		var disY = oEvent.clientY - oDiv.offsetTop;
+		document.onmousemove = function(ev){
+			var oEvent = ev || event;
+			oDiv.style.left = oEvent.clientX - disX + "px";
+			oDiv.style.top  = oEvent.clientY - disY + "px";
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+			oDiv.releaseCapture && oDiv.releaseCapture();
+		};	
+		oDiv.setCapture && oDiv.setCapture();
+		return false;
+	};
+	
+};
+
+
+</script>
+
+</head>
+
+<body>
+
+<div id="div1">
+	<div class="hour"></div>
+	<div class="min"></div>
+	<div class="sec"></div>
+	<div class="cap"></div>
+    <!--<span><em>12</em></span>-->
+
+</div>
+
+</body>
+</html>

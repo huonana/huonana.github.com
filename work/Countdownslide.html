@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>幻灯片倒计时</title>
+<style>
+* {margin:0; padding:0; list-style:none;}
+
+#div1 {width:500px; height:300px; position:relative; margin:10px auto; overflow:hidden;}
+#div1 ul {position:absolute; left:0; top:0;}
+#div1 ul li {width:500px; height:300px; float:left; line-height:300px; text-align:center; font-size:400%;}
+#div1 ol {position:absolute; left:50%; bottom:50px; width:400px; margin-left:-200px;}
+#div1 ol li {width:80px; margin:10px; float:left; background:white; height:20px;}
+#div1 ol li span {display:block; height:20px; background:#03F; width:0;}
+</style>
+<script src="js/move2.js"></script>
+<script>
+window.onload=function ()
+{
+	var oDiv=document.getElementById('div1');
+	var oUl=oDiv.children[0];
+	var aLi=oUl.children;
+	var aSpan=oDiv.getElementsByTagName('span');
+	var now=0;
+	var pause=false;
+	oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+	
+	wuxian()
+	
+	function wuxian(){
+		move(aSpan[now],{width:80},{type:'linear',time:1000,fn:function(){//进度
+			now++;
+			if(now==aLi.length) now=0;
+			move(oUl,{left:-now*aLi[0].offsetWidth},{time:500,fn:function(){
+				for(var i=0;i<aSpan.length;i++){
+					aSpan[i].style.width=0;	
+				}	
+				if(!pause){
+					wuxian();	
+				}
+			}});
+		}});	
+	}
+	
+	
+	oDiv.onmouseover=function(){
+		pause=true;
+		for(var i=0;i<aSpan.length;i++){
+			clearInterval(aSpan[i].timer);
+			aSpan[i].style.width=0;	
+		}
+	};
+	oDiv.onmouseout=function(){
+		pause=false;
+		wuxian();
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<ul>
+    	<li style="background:#CC6;">0</li>
+    	<li style="background:#fc0;">1</li>
+    	<li style="background:#ccF;">2</li>
+    	<li style="background:#f9f;">3</li>
+    </ul>
+    <ol>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    </ol>
+</div>
+</body>
+</html>
