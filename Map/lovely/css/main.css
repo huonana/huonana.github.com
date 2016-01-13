@@ -1,0 +1,73 @@
+/*base*/
+html {
+	font: 12px/1.5 arial, SimSun, helvetica, sans-serif
+}
+body, h1, h2, h3, h4, h5, h6, p, dl, dd, ol, ul, fieldset, figure, menu, blockquote, pre, hr {
+	margin: 0
+}
+legend, menu, ol, ul, td, th, input {
+	padding: 0
+}
+
+ol, ul, menu {
+	list-style: none
+}
+em, abbr, dfn, address, cite, i {
+	font-style: normal
+}
+img {
+	vertical-align: middle;
+	border: 0
+}
+a {
+	color: inherit;
+	text-decoration: none
+}
+a:hover {
+	color: # ;
+	text-decoration: none;
+	outline: 0
+}
+h1, h2, h3, h4, h5, h6, strong {
+	font-size: 100%;
+	font-weight: 400
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+caption, th {
+	text-align: left
+}
+hr {
+	border-style: solid
+}
+q:before, q:after {
+	content: none
+}
+button, [type=button], [type=reset], [type=submit] {
+	cursor: pointer;
+	background-color: transparent
+}
+button, [type=button], [type=reset], [type=submit], label, [type=text], textarea, select {
+	border: 0
+}
+button:focus, [type=button]:focus, [type=reset]:focus, [type=submit]:focus, label:focus, [type=text]:focus, textarea:focus, select:focus {
+	outline: 0
+}
+.clearfix:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden
+}
+.clearfix {
+	zoom: 1
+}
+.text_overflow {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
