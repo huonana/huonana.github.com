@@ -62,7 +62,7 @@ img{ border:0 none;}
 		 
 		 .ch-item .jiantou3{ position:absolute; left:0px; top:270px; background:url(../image/nimate-white.png) no-repeat -15px -54px; width:24px; height:26px; text-indent:-9999999px; transform:rotate(65deg);}
 		 
-		.ch-item span{ position:absolute; left:0; top:0; display:inline; width:180px; height:180px; line-height:180px; text-align:center; z-index:3; font-size:32px; font-weight:bold;color:#FFF; display: block; transition:0.5s all ease;
+		.ch-item span{ position:absolute; left:0; top:0; display:inline; width:180px; height:180px; line-height:180px; text-align:center; z-index:3; font-size:25px; font-weight:bold;color:#FFF; display: block; transition:0.5s all ease;
 		 text-shadow:2px 2px 5px #000;}	
 		.ch-item:hover span{ z-index:-1;}	
 		.ch-info {width: inherit;height: inherit;
@@ -72,7 +72,7 @@ img{ border:0 none;}
 		   transition:all ease-in-out 0.4s;
 		   border-radius: 50%;
 		   }		
-		.ch-info h3 {color: #fff;text-transform: uppercase;	letter-spacing: 2px;font-size: 32px;padding: 10px 0 0 0;font-family: "Adobe 明體 Std L", Arial, sans-serif;
+		.ch-info h3 {color: #fff;text-transform: uppercase;	letter-spacing: 2px;font-size: 20px;padding: 30px 0 0 0;font-family: "Adobe 明體 Std L", Arial, sans-serif;
 		 text-shadow: 0px 0px 2px rgba(255,255,255,0.4), 1px 1px 1px rgba(0,0,0,0.4)
 		 }	
 		.ch-info p {color: #fff;font-style: italic;margin: 0 30px;font-size: 14px;border-top: 1px solid; rgba(255,255,255,0.5); transition:all 0.4s ease-in-out 0.4s; opacity:0;	font-family:"Times New Roman";		
@@ -97,7 +97,7 @@ img{ border:0 none;}
 #page3 #ul2 li.cur{ display:block;}
 #page3 #ul2 li a{width:300px; height:180px;  position:relative;margin:20px; border-radius:15px; display:inline;float:left; box-shadow:3px 3px 5px #999; overflow:hidden; font-size:25px; color:#FFF; z-index:6; }
 #page3 #ul2 li a img{position:absolute; left:0; top:0; width:300px; height:180px;}
-#page3 #ul2 li a span{position:absolute; left:-300px; top:0;width:300px; height:180px; background:pink; display:inline; text-align:center; line-height:160px;border-radius:15px;}
+#page3 #ul2 li a span{position:absolute; left:-300px;top:0;width:300px; height:180px;background:rgba(255,192,203,.8);display:inline; text-align:center; line-height:160px;border-radius:15px;}
 #page3 .src{right: 5px; bottom: 5px; width:85px; height:50px; margin-left:47%;}
 #page3 .src span{ width:30px; height:30px; margin-left:10px; border-radius:50%; float:left;display:inline-block;background:#77776E;}
 #page3 .src span.active{ background:#2BA4AC;}
@@ -112,7 +112,7 @@ img{ border:0 none;}
 #ul3 li div{height:80px; width:100%; position:absolute; left:0; bottom:-80px; opacity:0; filter:alpha(opacity:0);}
 #ul3 li div .bg{height:80px; border-top:1px solid white; width:100%; background:black; position:absolute; left:0; top:0; opacity:0.6; filter:alpha(opacity:60); z-index:1;}
 #ul3 li div em {position:absolute; left:0; top:0; color:white; z-index:2;}
-#ul3 li h2 {padding:4px; font-family:'\65B0\5B8B\4F53', '\5B8B\4F53', Verdana; font-weight:bold;}
+#ul3 li h2 {padding:4px; font-family:'\65B0\5B8B\4F53', '\5B8B\4F53', Verdana; font-weight:bold; margin-left:30px;}
 #ul3 li p {padding:4px 0 0 20px; line-height:22px;}
 
 /* 联系我*/
