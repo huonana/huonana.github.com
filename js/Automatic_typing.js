@@ -1,6 +1,6 @@
 // JavaScript Document
 $(function(){
-	var str='熟练HTML，CSS，JavaScript等语言，熟练Jquery，AJAX，Jsonp，Seajs等前端技术，根据需求准确完成产品前端展示效果';
+	var str='熟练HTML，CSS，JavaScript等语言，熟练Jquery，AJAX，Jsonp，Seajs等前端技术，根据需求准确完成产品前端展示效果。';
 	
 	var PageLeft=document.getElementById("page2_left");
 	var PageCont=PageLeft.getElementsByClassName("page2_cont")[0];
